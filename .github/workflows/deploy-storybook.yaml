@@ -1,0 +1,38 @@
+name: Build and Publish storybook to GitHub Pages
+
+on:
+  push:
+    branches:
+      - "main"
+      - "develop"
+      # Add other branches as needed
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  deploy:
+    environment:
+      name: ${{ github.ref_name }}
+      url: ${{ steps.build-publish.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+    - name: Determine deployment path
+      id: path
+      run: |
+        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
+        if [ "$BRANCH_NAME" = "main" ]; then
+          echo "path=" >> $GITHUB_OUTPUT
+        else
+          echo "path=$BRANCH_NAME" >> $GITHUB_OUTPUT
+        fi
+        echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
+    
+    - id: build-publish
+      uses: bitovi/github-actions-storybook-to-github-pages@v1.0.4
+      with:
+        path: ${{ steps.path.outputs.path }}
+        build_command: npm run build-storybook
+        checkout: false
