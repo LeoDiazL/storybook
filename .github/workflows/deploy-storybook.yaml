@@ -22,6 +22,6 @@ jobs:
     - id: build-publish-storybook
       uses: bitovi/github-actions-storybook-to-github-pages@v1.0.4
       with:
-        path: ${{ steps.path.outputs.path }}
+        path: dist/storybook/${{ github.ref_name }}
         build_command: npm run build-storybook-${{ github.ref_name }}
         #checkout: false
