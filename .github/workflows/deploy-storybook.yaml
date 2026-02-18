@@ -24,13 +24,13 @@ jobs:
       run: |
         BRANCH_NAME="${GITHUB_REF#refs/heads/}"
         if [ "$BRANCH_NAME" = "main" ]; then
-          echo "path=" >> $GITHUB_OUTPUT
+          echo "path=dist/storybook" >> $GITHUB_OUTPUT
         else
           echo "path=$BRANCH_NAME" >> $GITHUB_OUTPUT
         fi
         echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
     
-    - id: build-publish
+    - id: build-publish-storybook
       uses: bitovi/github-actions-storybook-to-github-pages@v1.0.4
       with:
         path: ${{ steps.path.outputs.path }}
