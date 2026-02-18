@@ -35,4 +35,4 @@ jobs:
       with:
         path: ${{ steps.path.outputs.path }}
         build_command: npm run build-storybook
-        checkout: false
+        #checkout: false
