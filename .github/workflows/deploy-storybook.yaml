@@ -19,20 +19,9 @@ jobs:
       url: ${{ steps.build-publish.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-    - name: Determine deployment path
-      id: path
-      run: |
-        BRANCH_NAME="${GITHUB_REF#refs/heads/}"
-        if [ "$BRANCH_NAME" = "main" ]; then
-          echo "path=dist/storybook" >> $GITHUB_OUTPUT
-        else
-          echo "path=$BRANCH_NAME" >> $GITHUB_OUTPUT
-        fi
-        echo "branch=$BRANCH_NAME" >> $GITHUB_OUTPUT
-    
     - id: build-publish-storybook
       uses: bitovi/github-actions-storybook-to-github-pages@v1.0.4
       with:
         path: ${{ steps.path.outputs.path }}
-        build_command: npm run build-storybook
+        build_command: npm run build-storybook-${{ github.ref_name }}
         #checkout: false

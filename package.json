@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build -o dist/storybook"
+    "build-storybook-main": "storybook build -o dist/storybook/main",
+    "build-storybook-develop": "storybook build -o dist/storybook/develop"
   },
   "dependencies": {
     "@astrojs/cloudflare": "^3.1.0",
